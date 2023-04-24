@@ -4,12 +4,6 @@ CREATE TABLE IF NOT EXISTS Person (
     last_name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Employee (
-    employee_id SERIAL PRIMARY KEY,
-    person_id INT NOT NULL,
-    FOREIGN KEY (person_id) REFERENCES Person(person_id)
-);
-
 CREATE TABLE IF NOT EXISTS Account_Type (
     account_type_id SERIAL PRIMARY KEY,
     description VARCHAR(255) NOT NULL
@@ -50,10 +44,6 @@ CREATE TABLE IF NOT EXISTS Stock_Purchase (
 INSERT INTO Person (first_name, last_name)
 VALUES ('John', 'Doe'), ('Jane', 'Doe')
 RETURNING person_id;
-
--- Insert data into Employee table using the generated person_id values
-INSERT INTO Employee (person_id)
-VALUES (1), (2);
 
 -- Insert data into Account_Type table and retrieve generated account_type_id values
 INSERT INTO Account_Type (description)
