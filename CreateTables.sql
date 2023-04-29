@@ -57,9 +57,9 @@ VALUES (1, 1), (2, 2);
 -- Insert data into Company_Information table and retrieve generated company_id values
 INSERT INTO Company_Information (ticker, description)
 VALUES ('AAPL', 'Apple Inc.'), ('GOOG', 'Alphabet Inc.'), ('MSFT', 'Microsoft Corporation'), 
-       ('AMZN', 'Amazon.com, Inc.'), ('FB', 'Meta Platforms, Inc.'), ('TSLA', 'Tesla, Inc.'), 
-       ('JPM', 'JPMorgan Chase & Co.'), ('V', 'Visa Inc.'), ('BAC', 'Bank of America Corporation'),
-       ('WMT', 'Walmart Inc.')
+        ('AMZN', 'Amazon.com, Inc.'), ('FB', 'Meta Platforms, Inc.'), ('TSLA', 'Tesla, Inc.'), 
+        ('JPM', 'JPMorgan Chase & Co.'), ('V', 'Visa Inc.'), ('BAC', 'Bank of America Corporation'),
+        ('WMT', 'Walmart Inc.')
 RETURNING company_id;
 
 -- Insert data into Price_Over_Time table using the generated company_id values
