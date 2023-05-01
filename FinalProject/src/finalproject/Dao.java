@@ -13,7 +13,7 @@ import java.sql.*;
 public class Dao {
     static String jdbcURL = "jdbc:postgresql://localhost:5432/CompanyMgmt";
     static String username = "postgres";
-    static String password = "Yi37JBBXS5cP";
+    static String password = "postgres";
         
     private static Connection conn;
     
