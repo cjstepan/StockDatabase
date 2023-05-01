@@ -1,36 +1,47 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package finalproject;
+
 import java.sql.*;
+
 /**
  *
- * @author Calvin Stepan
+ * @author calvin
  */
 public class Dao {
-    private String jdbcURL = "jdbc:postgresql://localhost:5432/FinalProject";
-    private String username = "postgres";
-    private String password = "Yi37JBBXS5cP";
-    private Connection connection;
+    static String jdbcURL = "jdbc:postgresql://localhost:5432/CompanyMgmt";
+    static String username = "postgres";
+    static String password = "Yi37JBBXS5cP";
+        
+    private static Connection conn;
     
-    public Dao()
-    {
-        try
-        {
+    public static void connectToDatabase() {
+        try {
             Class.forName("org.postgresql.Driver");
-            Connection connection = DriverManager.getConnection
-                (jdbcURL, username, password);
-            System.out.println("Connection Success");
+            conn = DriverManager.getConnection(jdbcURL, username, password);
         }
-        catch (ClassNotFoundException e)
-        {
-            System.out.println("Cannot load Driver");
+        catch (ClassNotFoundException driverException) {
+            System.out.println("Cannot load the dirver.");
+            driverException.printStackTrace(); 
         }
-        catch (SQLException sqle)
-        {
-            System.out.println(sqle);
+        catch (SQLException sqlException) {
+            System.out.println("Cannot connect to database.");
+            sqlException.printStackTrace();
         }
     }
     
-    public Connection getConnection()
-    {
-        return connection;
+    public static void closeConnection () throws SQLException {
+        if (conn != null) {
+            conn.close();
+        }
+    }
+    
+    public static Connection getConnection() {
+        if (conn == null) {
+            connectToDatabase();
+        }
+        return conn;
     }
 }

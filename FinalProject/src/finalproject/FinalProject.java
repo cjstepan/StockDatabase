@@ -1,30 +1,28 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
 package finalproject;
+
+import java.sql.SQLException;
 
 /**
  *
- * @author Calvin Stepan
+ * @author calvin
  */
-public class FinalProject 
-{
+public class FinalProject {
+    
+    public void start() {
+        Dao.connectToDatabase();
+        //Add Menu stuff here
+    }
 
-    /**
-     * 1 - Company Statements
-     * 2 - StockPurchase Statements
-     * 3 - Person Statements
-     * 4 - AccountOwnership Statements
-     * 
-     * Create secondary menus for each one of these
-     * Create tertiary menus for each executed statement
-     */
-    
-    
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) 
-    {
-        Dao dao = new Dao();
-        
+    public static void main(String[] args) {
+        FinalProject project = new FinalProject();
+        project.start();
     }
     
 }
