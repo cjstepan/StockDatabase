@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS Account_Ownership (
     FOREIGN KEY (account_type_id) REFERENCES Account_Type(account_type_id)
 );
 
-CREATE TABLE IF NOT EXISTS Company_Information (
+CREATE TABLE IF NOT EXISTS Company (
     company_id SERIAL PRIMARY KEY,
     ticker VARCHAR(255) NOT NULL UNIQUE,
     description VARCHAR(255) NOT NULL
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS Price_Over_Time (
     company_id INT NOT NULL,
     date DATE NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (company_id) REFERENCES Company_Information(company_id)
+    FOREIGN KEY (company_id) REFERENCES Company(company_id)
 );
 
 CREATE TABLE IF NOT EXISTS Stock_Purchase (
@@ -54,8 +54,8 @@ RETURNING account_type_id;
 INSERT INTO Account_Ownership (person_id, account_type_id)
 VALUES (1, 1), (2, 2);
 
--- Insert data into Company_Information table and retrieve generated company_id values
-INSERT INTO Company_Information (ticker, description)
+-- Insert data into Company table and retrieve generated company_id values
+INSERT INTO Company (ticker, description)
 VALUES ('AAPL', 'Apple Inc.'), ('GOOG', 'Alphabet Inc.'), ('MSFT', 'Microsoft Corporation'), 
         ('AMZN', 'Amazon.com, Inc.'), ('FB', 'Meta Platforms, Inc.'), ('TSLA', 'Tesla, Inc.'), 
         ('JPM', 'JPMorgan Chase & Co.'), ('V', 'Visa Inc.'), ('BAC', 'Bank of America Corporation'),
