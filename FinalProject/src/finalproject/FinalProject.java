@@ -172,8 +172,8 @@ public class FinalProject {
         int option3Choice;
         do {
             System.out.println("\n-----Price Over Time Menu-----");
-            System.out.println("1. add new price");
-            System.out.println("2. Get price by date");
+            System.out.println("1. Add New Price");
+            System.out.println("2. Get Price by Date");
             System.out.println("3. Get Average Price by Ticker");
             System.out.println("4. Get All Prices by Ticker");
             System.out.println("5. Get Minimum and Maximum Price by Ticker");
@@ -199,15 +199,14 @@ public class FinalProject {
 
                 case 2:
 
-                    System.out.println("\n\n-----Get price by date-----\n\n");
+                    System.out.print("\n\n-----Get price by date-----\n\n");
                     System.out.println("Company Id: ");
                     Scanner scan4 = new Scanner(System.in);
-                    int id2 = scan4.nextInt();
+                    String id2 = scan4.next();
                     System.out.println("Current Date(YYYY-MM-DD): ");
                     Scanner scan5 = new Scanner(System.in);
                     String date2 = scan5.next();
-                    Date date3 = Date.valueOf(date2);
-                    PriceOverTime.getPriceByDate(Dao.getConnection(), date3, id2);
+                    PriceOverTime.getPriceByDate(Dao.getConnection(), date2, id2);
                     break;
                 
                 case 3:
