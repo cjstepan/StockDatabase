@@ -1,46 +1,19 @@
 package finalproject;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+import java.sql.*;
 
-/**
- *
- * @author Administrator
- */
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 /**
  *
  * @author Calvin Stepan
  */
 public class Person 
 {
-    private int person_id;
-    private String first_name;
-    private String last_name;
-
-    public Person(String first_name, String last_name) 
-    {
-        this.first_name = first_name;
-        this.last_name = last_name;
-    }
-
-    public Person() 
-    {
-        
-    }
-
     /**
      * 
      * @param connection
      * @param first_name
      * @param last_name
-     * @return new Person object
      */
-    public static void addPerson(Connection connection, String first_name, String last_name)//UPDATED
+    public static void addPerson(Connection connection, String first_name, String last_name)
     {
         String insertPerson = "INSERT INTO Person (first_name, last_name) VALUES (?, ?)";
         try 
@@ -49,7 +22,7 @@ public class Person
             pstmt.setString(1, first_name);
             pstmt.setString(2, last_name);
             
-            ResultSet rs = pstmt.executeQuery();
+            pstmt.executeQuery();
             
             System.out.println("person added");
         }
@@ -101,6 +74,11 @@ public class Person
         }
     }
 
+    /**
+     * 
+     * @param connection
+     * @param person_id
+     */
     public static void getAccountsOwnedByPerson(Connection connection, int person_id)
     {
         String selectPersonAccounts = "select first_name,last_name,description from account_ownership " +

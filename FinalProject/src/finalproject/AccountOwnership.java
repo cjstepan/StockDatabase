@@ -1,16 +1,5 @@
 package finalproject;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-/**
- *
- * @author Administrator
- */
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  *
@@ -18,7 +7,14 @@ import java.sql.SQLException;
  */
 public class AccountOwnership 
 {
-    public static void addAccountOwnership(Connection connection, int person_id, int account_id,int account_type_id)//Currently Working
+    /**
+     * 
+     * @param connection
+     * @param person_id
+     * @param account_id
+     * @param account_type_id
+     */
+    public static void addAccountOwnership(Connection connection, int person_id, int account_id,int account_type_id)
     {
         String insertAccountOwnership = "INSERT INTO Account_Ownership (person_id, account_id,account_type_id) VALUES (?,?,?)";
         try 
@@ -28,7 +24,7 @@ public class AccountOwnership
             pstmt.setInt(2, account_id);
             pstmt.setInt(3, account_type_id);
             
-            ResultSet rs = pstmt.executeQuery();
+            pstmt.executeQuery();
             
         }
         catch (SQLException sqle)
@@ -36,6 +32,11 @@ public class AccountOwnership
         }
     }
 
+    /**
+     * 
+     * @param connection
+     * @param account_id
+     */
     public static void getAccountOwnershipByAccountID(Connection connection, int account_id)
     {
         String selectAccountOwnership = "select first_name,last_name,description from account_ownership " +
@@ -60,34 +61,44 @@ public class AccountOwnership
     }
 
     public static void getAccountTotalValue(Connection connection, int account_id) {
-        String selectSharesCompany = "select shares_purchased,company_id from stock_purchase " +
-            "left join price_over_time on stock_purchase.time_id = price_over_time.time_id " +
-            "where account_id = ?";
-        String selectRecentPrice = "select price from price_over_time " +
-            "where company_id = ? " +
-            "and date = ( select max(date) from price_over_time )";
-        
-        try 
-        {
-            PreparedStatement pstmt = connection.prepareStatement(selectSharesCompany);
-            pstmt.setInt(1, account_id);
-            ResultSet rs = pstmt.executeQuery();
-            ResultSet rs2;
+        String selectSharesCompany = "SELECT sp.shares_purchased, c.ticker, pot.time_id " +
+                "FROM stock_purchase sp " +
+                "LEFT JOIN price_over_time pot " +
+                "ON sp.time_id = pot.time_id " +
+                "LEFT JOIN company c " +
+                "ON pot.company_id = c.company_id " +
+                "WHERE sp.account_id = ?";
+        String selectRecentPrice = "SELECT p.price " +
+                "FROM price_over_time p " +
+                "LEFT JOIN company c " +
+                "ON p.company_id = c.company_id " +
+                "WHERE p.company_id = ? " +
+                "AND p.date = (SELECT MAX(date) FROM price_over_time WHERE company_id = c.company_id)";
+        try (PreparedStatement pstmt1 = connection.prepareStatement(selectSharesCompany);
+            PreparedStatement pstmt2 = connection.prepareStatement(selectRecentPrice)) {
+            pstmt1.setInt(1, account_id);
+            ResultSet rs1 = pstmt1.executeQuery();
             double total = 0;
-            while( rs.next() )
-            {
-                pstmt = connection.prepareStatement(selectRecentPrice);
-                pstmt.setInt(1, rs.getInt("company_id"));
-                rs2 = pstmt.executeQuery();
-                if(rs2.next())
-                total = total + rs.getInt("shares_purchased") * rs2.getDouble("price");
+            while (rs1.next()) {
+                String symbol = rs1.getString("ticker");
+                pstmt2.setInt(1, rs1.getInt("time_id"));
+                ResultSet rs2 = pstmt2.executeQuery();
+                if (rs2.next()) {
+                    double price = rs2.getDouble("price");
+                    int shares_purchased = rs1.getInt("shares_purchased");
+                    total += shares_purchased * price;
+                    System.out.println("Symbol: " + symbol + "\tShares Purchased: " + shares_purchased + "\tPrice: $" + price);
+                } else {
+                    System.out.println("No price data found for company with symbol " + symbol);
+                }
             }
-            System.out.println("Total Account Value is: " + total);
-        }
-        catch (SQLException sqle)
-        {
+            System.out.println("Total Account Value is: $" + total);
+        } catch (SQLException sqle) {
             System.out.println(sqle);
         }
     }
+    
+    
+    
 
 }
