@@ -200,7 +200,7 @@ public class FinalProject {
                 case 2:
 
                     System.out.print("\n\n-----Get price by date-----\n\n");
-                    System.out.println("Company Id: ");
+                    System.out.println("Company Ticker: ");
                     Scanner scan4 = new Scanner(System.in);
                     String id2 = scan4.next();
                     System.out.println("Current Date(YYYY-MM-DD): ");
