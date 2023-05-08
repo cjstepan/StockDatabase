@@ -1,5 +1,4 @@
 package finalproject;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -7,7 +6,7 @@ package finalproject;
 
 /**
  *
- * @author Administrator
+ * @author twey
  */
 import java.sql.*;
 
@@ -16,7 +15,7 @@ import java.sql.*;
  * @author calvin
  */
 public class Dao {
-    static String jdbcURL = "jdbc:postgresql://localhost:5432/FinalProject";
+    static String jdbcURL = "jdbc:postgresql://localhost:5432/FinalProject2";
     static String username = "postgres";
     static String password = "Yi37JBBXS5cP";
         

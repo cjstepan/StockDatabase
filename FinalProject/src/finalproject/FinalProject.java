@@ -1,15 +1,15 @@
 package finalproject;
-
 import java.util.Scanner;
 
 /**
  *
- * @author Big PaPPaPaai
+ * @author 
  */
+import java.sql.*;
 
 /**
  *
- * @author calvin
+ * @author calvin NOAH twey
  */
 public class FinalProject {
 
@@ -24,13 +24,13 @@ public class FinalProject {
         Scanner scanner = new Scanner(System.in);
         int mainChoice;
         do {
-            System.out.println("\n\n-----Main Menu-----");
+            System.out.println("\n-----Main Menu-----");
             System.out.println("1. Company Information");
             System.out.println("2. Person Information");
             System.out.println("3. Price Information");
             System.out.println("4. Purchases Information");
             System.out.println("5. Accounts Information");
-            System.out.println("6. Exit");
+            System.out.println("6. Exit\n");
             System.out.print("Enter your choice: ");
             mainChoice = scanner.nextInt();
             switch (mainChoice) {
@@ -68,7 +68,8 @@ public class FinalProject {
             System.out.println("1. Get Company by Ticker");
             System.out.println("2. Add Company");
             System.out.println("3. Delete Company");
-            System.out.println("4. Back to Main Menu");
+            System.out.println("4. Display All Tickers");
+            System.out.println("5. Return to Main Menu?\n");
             System.out.print("Enter your choice: ");
             option1Choice = scanner.nextInt();
             switch (option1Choice) {
@@ -99,6 +100,7 @@ public class FinalProject {
                 case 3:
 
                     System.out.println("\n\n-----Delete Company-----\n\n");
+                    System.out.println("Insert ticker: ");
                     Scanner scan4 = new Scanner(System.in);
                     String ticker3 = scan4.next();
                     Company.deleteCompany(Dao.getConnection(), ticker3);
@@ -107,6 +109,15 @@ public class FinalProject {
                     break;
 
                 case 4:
+                 System.out.print("\n\n-----Display All Company Tickers-----\n\n");
+                    String[] str = Company.getAllTickers(Dao.getConnection());
+                    for(int i = 0; i < str.length; i++) {
+                        if(str[i] != null)
+                        System.out.println(str[i]);
+                    }
+                    break;   
+                    
+                case 5:
                     System.out.println("Returning to Main Menu");
                     break;
 
@@ -114,7 +125,7 @@ public class FinalProject {
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
-        } while (option1Choice != 4);
+        } while (option1Choice != 5);
     }
 
     public void option2Menu() { //put Person here
@@ -124,7 +135,7 @@ public class FinalProject {
             System.out.println("\n-----Person Information Menu-----");
             System.out.println("1. Add Person");
             System.out.println("2. Remove Person");
-            System.out.println("3. Back to Main Menu");
+            System.out.println("3. Back to Main Menu\n");
             System.out.print("Enter your choice: ");
             option2Choice = scanner.nextInt();
             switch (option2Choice) {
@@ -162,8 +173,11 @@ public class FinalProject {
         do {
             System.out.println("\n-----Price Over Time Menu-----");
             System.out.println("1. add new price");
-            System.out.println("2. current price");
-            System.out.println("3. Back to Main Menu");
+            System.out.println("2. Get price by date");
+            System.out.println("3. Get Average Price by Ticker");
+            System.out.println("4. Get All Prices by Ticker");
+            System.out.println("5. Get Minimum and Maximum Price by Ticker");
+            System.out.println("6. Back to Main Menu\n");
             System.out.print("Enter your choice: ");
             option3Choice = scanner.nextInt();
             switch (option3Choice) {
@@ -192,10 +206,38 @@ public class FinalProject {
                     System.out.println("Current Date(YYYY-MM-DD): ");
                     Scanner scan5 = new Scanner(System.in);
                     String date2 = scan5.next();
-                    PriceOverTime.getPriceByDate(Dao.getConnection(), date2, id2);
+                    Date date3 = Date.valueOf(date2);
+                    PriceOverTime.getPriceByDate(Dao.getConnection(), date3, id2);
                     break;
-
+                
                 case 3:
+
+                    System.out.print("\n\n-----Get Average Price by Ticker-----\n\n");
+                    System.out.println("Ticker: ");
+                    Scanner scan7 = new Scanner(System.in);
+                    String ticker2 = scan7.next();
+                    PriceOverTime.getAvgPriceByTicker(Dao.getConnection(), ticker2);
+                    break;
+                    
+                case 4:
+                    
+                    System.out.print("\n\n-----Get All Prices by Ticker-----\n\n");
+                    System.out.println("Ticker: ");
+                    Scanner scan6 = new Scanner(System.in);
+                    String ticker1 = scan6.next();
+                    PriceOverTime.getAllPriceByTicker(Dao.getConnection(), ticker1);
+                    break;
+                
+                case 5:
+                    
+                    System.out.print("\n\n-----Get Minimum and Maximum Price by Ticker-----\n\n");
+                    System.out.println("Ticker: ");
+                    Scanner scan8 = new Scanner(System.in);
+                    String ticker3 = scan8.next();
+                    PriceOverTime.getMinMaxPriceByTicker(Dao.getConnection(), ticker3);
+                    break; 
+                    
+                case 6:
                     System.out.println("Returning to Main Menu");
                     break;
 
@@ -203,7 +245,7 @@ public class FinalProject {
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
-        } while (option3Choice != 3);
+        } while (option3Choice != 6);
     }
 
     public void option4Menu() {
@@ -211,16 +253,16 @@ public class FinalProject {
         int option4Choice;
         do {
             System.out.println("\n------Purchase Menu------");
-            System.out.println("1. Add Purchase");
-            System.out.println("2. Update Purchase");
-            System.out.println("3. Back to Main Menu");
+            System.out.println("1. add purchase");
+            System.out.println("2. update purchase");
+            System.out.println("3. Back to Main Menu\n");
             System.out.print("Enter your choice: ");
             option4Choice = scanner.nextInt();
             switch (option4Choice) {
                 case 1:
 
                     System.out.println("\n\n-----Add Purchase-----\n\n");
-                    System.out.println("Company Id: ");
+                    System.out.println("Account_id: ");
                     Scanner scan1 = new Scanner(System.in);
                     int id = scan1.nextInt();
                     System.out.println("Id for the time created: ");
@@ -235,7 +277,7 @@ public class FinalProject {
                 case 2:
 
                     System.out.println("\n\n-----Update Purchase-----\n\n");
-                    System.out.println("Company Id: ");
+                    System.out.println("Account_id: ");
                     Scanner scan4 = new Scanner(System.in);
                     int id2 = scan4.nextInt();
                     System.out.println("Id for the time created: ");
@@ -265,9 +307,9 @@ public class FinalProject {
         int option4Choice;
         do {
             System.out.println("\n-----Account Ownership Menu-----");
-            System.out.println("1. Add Account Ownership");
-            System.out.println("2. Get Account Ownership by Account ID");
-            System.out.println("3. Back to Main Menu");
+            System.out.println("1. add account ownership");
+            System.out.println("2. get account ownership by account id");
+            System.out.println("3. Back to Main Menu\n");
             System.out.print("Enter your choice: ");
             option4Choice = scanner.nextInt();
             switch (option4Choice) {
@@ -277,16 +319,19 @@ public class FinalProject {
                     System.out.println("Person ID: ");
                     Scanner scan1 = new Scanner(System.in);
                     int id = scan1.nextInt();
-                    System.out.println("Account ID: ");
+                    System.out.println("account ID: ");
                     Scanner scan2 = new Scanner(System.in);
                     int id2 = scan2.nextInt();
-                    AccountOwnership.addAccountOwnership(Dao.getConnection(), id, id2);
+                    System.out.println("What type of Account: \n1. Roth IRA\n2. Money Market\n3. Mutual Fund");
+                    Scanner scan69 = new Scanner(System.in);
+                    int id69 = scan69.nextInt();
+                    AccountOwnership.addAccountOwnership(Dao.getConnection(), id, id2,id69);
                     break;
                     
                 case 2:
                     
-                    System.out.println("\n\n-----Account Ownership By Account ID-----\n\n");
-                    System.out.println("Account ID: ");
+                    System.out.println("\n\n-----Account Ownership By Account ID-----\n\n");//Not Getting Values
+                    System.out.println("account ID: ");
                     Scanner scan3 = new Scanner(System.in);
                     int id3 = scan3.nextInt();
                     AccountOwnership.getAccountOwnershipByAccountID(Dao.getConnection(), id3);

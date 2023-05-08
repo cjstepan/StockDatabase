@@ -1,10 +1,4 @@
 package finalproject;
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 /**
  *
  * @author Administrator
@@ -43,56 +37,42 @@ public class StockPurchase
      * @param shares_purchased
      * @return new StockPurchase object
      */
-    public static StockPurchase addPurchase(Connection connection, int company_id, int time_id, int shares_purchased)
+    public static void addPurchase(Connection connection, int account_id, int time_id, int shares_purchased)//UPDATED
     {
-        String insertPurchase = "INSERT INTO StockPurchase (company_id, time_id, shares_purchased) VALUES (?, ?, ?)";
+        String insertPurchase = "INSERT INTO stock_purchase (account_id, time_id, shares_purchased) VALUES (?, ?, ?)";
         StockPurchase newPurchase = new StockPurchase();
         try 
         {
             PreparedStatement pstmt = connection.prepareStatement(insertPurchase);
-            pstmt.setInt(1, company_id);
+            pstmt.setInt(1, account_id);
             pstmt.setInt(2, time_id);
             pstmt.setInt(3, shares_purchased);
             
-            ResultSet rs = pstmt.executeQuery();
-            while(rs.next())
-            {
-                newPurchase.setCompanyID(rs.getInt("company_id"));
-                newPurchase.setTimeID(rs.getInt("time_id"));
-                newPurchase.setSharesPurchased(rs.getInt("shares_purchased"));
-            }
+            pstmt.executeQuery();
         }
         catch (SQLException sqle)
         {
-            System.out.println(sqle);
         }
-        return newPurchase;
+
     }
 
-    public static StockPurchase updatePurchase(Connection connection, int company_id, int time_id, int shares_purchased)
+    public static void updatePurchase(Connection connection, int account_id, int time_id, int shares_purchased)//Updated
     {
-        String updatePurchase = "UPDATE StockPurchase SET shares_purchased = ? WHERE company_id = ? AND time_id = ?";
+        String updatePurchase = "UPDATE stock_purchase SET shares_purchased = ? WHERE account_id = ? AND time_id = ?";
         StockPurchase newPurchase = new StockPurchase();
         try 
         {
             PreparedStatement pstmt = connection.prepareStatement(updatePurchase);
             pstmt.setInt(1, shares_purchased);
-            pstmt.setInt(2, company_id);
+            pstmt.setInt(2, account_id);
             pstmt.setInt(3, time_id);
             
             ResultSet rs = pstmt.executeQuery();
-            while(rs.next())
-            {
-                newPurchase.setCompanyID(rs.getInt("company_id"));
-                newPurchase.setTimeID(rs.getInt("time_id"));
-                newPurchase.setSharesPurchased(rs.getInt("shares_purchased"));
-            }
+            
         }
         catch (SQLException sqle)
         {
-            System.out.println(sqle);
         }
-        return newPurchase;
     }
 
     public void setCompanyID(int company_id) 

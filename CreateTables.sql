@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS Stock_Purchase (
 
 -- Insert data into Person table and retrieve generated person_id values
 INSERT INTO Person (first_name, last_name)
-VALUES ('John', 'Doe'), ('Jane', 'Doe')
+VALUES ('John', 'Doe'), ('Jane', 'Doe'), ('John', 'Smith'), ('Jane', 'Smith'), ('John', 'Jones'), ('Jane', 'Jones')
 RETURNING person_id;
 
 -- Insert data into Account_Type table and retrieve generated account_type_id values
@@ -52,7 +52,7 @@ RETURNING account_type_id;
 
 -- Insert data into Account_Ownership table using the generated person_id and account_type_id values
 INSERT INTO Account_Ownership (person_id, account_type_id)
-VALUES (1, 1), (2, 2);
+VALUES (1, 1), (2, 2), (3, 3), (4, 1), (5, 2), (6, 3), (1, 2), (2, 3), (3, 1), (4, 2), (5, 3), (6, 1);
 
 -- Insert data into Company table and retrieve generated company_id values
 INSERT INTO Company (ticker, description)
@@ -81,4 +81,4 @@ VALUES
 
 -- Insert data into Stock_Purchase table using the generated time_id values and account_id values
 INSERT INTO Stock_Purchase (time_id, account_id, shares_purchased)
-VALUES (1, 1, 100), (2, 2, 50)
+VALUES (1, 1, 100), (2, 2, 50), (3, 3, 75), (4, 4, 25), (5, 5, 100), (6, 6, 50), (7, 7, 75), (8, 8, 25), (9, 9, 100), (10, 10, 50);
