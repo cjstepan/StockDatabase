@@ -5,7 +5,6 @@ import java.util.Scanner;
  *
  * @author 
  */
-import java.sql.*;
 
 /**
  *
@@ -80,8 +79,7 @@ public class FinalProject {
                     System.out.println("Company Ticker: ");
                     Scanner scan1 = new Scanner(System.in);
                     String ticker = scan1.next();
-                    Company name = Company.getCompanyByTicker(Dao.getConnection(), ticker);
-                    System.out.println(name.toString());
+                    Company.getCompanyByTicker(Dao.getConnection(), ticker);
                     break;
 
                 case 2:

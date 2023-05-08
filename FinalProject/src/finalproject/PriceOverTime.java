@@ -20,22 +20,6 @@ import java.sql.SQLException;
  */
 public class PriceOverTime 
 {
-    private int time_id;
-    private int company_id;
-    private double price;
-    private String date;
-
-    public PriceOverTime(int company_id, double price, String date) 
-    {
-        this.company_id = company_id;
-        this.price = price;
-        this.date = date;
-    }
-
-    public PriceOverTime() 
-    {
-        
-    }
 
     /**
      * 
@@ -48,7 +32,6 @@ public class PriceOverTime
     public static void addNewPrice(Connection connection, int company_id, double price, String date)//UPDATED
     {
         String insertPrice = "INSERT INTO price_over_time (company_id, price,date) VALUES (?, ?, CAST(? AS date))";
-        PriceOverTime newPrice = new PriceOverTime();
         try 
         {
             PreparedStatement pstmt = connection.prepareStatement(insertPrice);
@@ -170,24 +153,5 @@ public class PriceOverTime
         {
             System.out.println(sqle);
         }
-    }
-    public void setTimeID(int time_id) 
-    {
-        this.time_id = time_id;
-    }
-
-    public void setCompanyID(int company_id) 
-    {
-        this.company_id = company_id;
-    }
-
-    public void setPrice(double price) 
-    {
-        this.price = price;
-    }
-
-    public void setDate(String date) 
-    {
-        this.date = date;
     }
 }

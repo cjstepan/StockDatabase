@@ -19,25 +19,9 @@ import java.sql.SQLException;
  */
 public class Company 
 {
-    private int company_id;//probably can remove
-    String ticker;
-    String description;
-    
-    public Company(String ticker, String description)
-    {
-        this.ticker = ticker;
-        this.description = description;
-    }
-    
-    public Company()
-    {
-        
-    }
-    
     public static void addCompany(Connection connection, String ticker, String description)
     {
         String insertCompany = "INSERT INTO Company (ticker, description) VALUES (upper(?), ?)";
-        Company newCompany = new Company();
         try 
         {
             PreparedStatement pstmt = connection.prepareStatement(insertCompany);
@@ -54,10 +38,9 @@ public class Company
         
     }
 
-    public static Company getCompanyByTicker(Connection connection, String ticker)//UPDATED
+    public static void getCompanyByTicker(Connection connection, String ticker)//UPDATED
     {
         String selectCompany = "SELECT * FROM Company WHERE ticker = upper(?)";
-        Company newCompany = new Company();
         try 
         {
             PreparedStatement pstmt = connection.prepareStatement(selectCompany);
@@ -66,16 +49,14 @@ public class Company
             ResultSet rs = pstmt.executeQuery();
             while(rs.next())
             {
-                newCompany.setCompanyID(rs.getInt("company_id"));
-                newCompany.setTicker(rs.getString("ticker"));
-                newCompany.setDescription(rs.getString("description"));
+                System.out.println("Ticker: " + rs.getString("ticker") + "\nDescription: " + rs.getString("description"));
             }
+            
         }
         catch (SQLException sqle)
         {
             System.out.println(sqle);
         }
-        return newCompany;
     }
 
     public static void deleteCompany(Connection connection, String ticker)//UPDATED
@@ -113,27 +94,4 @@ public class Company
         }
         return str;
     }
-    private void setCompanyID(int company_id)
-    {
-        this.company_id = company_id;
-    }
-
-    private void setTicker(String ticker)
-    {
-        this.ticker = ticker;
-    }
-
-    private void setDescription(String description)
-    {
-        this.description = description;
-    }
-
-    @Override
-    public String toString() {
-    return "Company{" +
-            "company_id=" + company_id +
-            ", ticker='" + ticker + '\'' +
-            ", description='" + description + '\'' +
-            '}';
-}
 }

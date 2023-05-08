@@ -55,7 +55,6 @@ public class Person
         }
         catch (SQLException sqle)
         {
-            System.out.println(sqle);
         }
     }
 
@@ -122,21 +121,6 @@ public class Person
         {
             System.out.println(sqle);
         }
-    }
-
-    public void setPersonID(int person_id) 
-    {
-        this.person_id = person_id;
-    }
-
-    public void setFirstName(String first_name) 
-    {
-        this.first_name = first_name;
-    }
-
-    public void setLastName(String last_name) 
-    {
-        this.last_name = last_name;
     }
 }
 

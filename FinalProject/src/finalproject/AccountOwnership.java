@@ -18,25 +18,9 @@ import java.sql.SQLException;
  */
 public class AccountOwnership 
 {
-    private int account_ownership_id;
-    private int person_id;
-    private int account_id;
-
-    public AccountOwnership(int person_id, int account_id) 
-    {
-        this.person_id = person_id;
-        this.account_id = account_id;
-    }
-
-    public AccountOwnership() 
-    {
-        
-    }
-
-    public static AccountOwnership addAccountOwnership(Connection connection, int person_id, int account_id,int account_type_id)//Currently Working
+    public static void addAccountOwnership(Connection connection, int person_id, int account_id,int account_type_id)//Currently Working
     {
         String insertAccountOwnership = "INSERT INTO Account_Ownership (person_id, account_id,account_type_id) VALUES (?,?,?)";
-        AccountOwnership newAccountOwnership = new AccountOwnership();
         try 
         {
             PreparedStatement pstmt = connection.prepareStatement(insertAccountOwnership);
@@ -49,9 +33,7 @@ public class AccountOwnership
         }
         catch (SQLException sqle)
         {
-            System.out.println(sqle);
         }
-        return newAccountOwnership;
     }
 
     public static void getAccountOwnershipByAccountID(Connection connection, int account_id)
@@ -75,20 +57,5 @@ public class AccountOwnership
         {
             System.out.println(sqle);
         }
-    }
-
-    public void setAccountOwnershipID(int account_ownership_id) 
-    {
-        this.account_ownership_id = account_ownership_id;
-    }
-
-    public void setPersonID(int person_id) 
-    {
-        this.person_id = person_id;
-    }
-
-    public void setAccountID(int account_id) 
-    {
-        this.account_id = account_id;
     }
 }
