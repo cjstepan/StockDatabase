@@ -1,16 +1,5 @@
 package finalproject;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-/**
- *
- * @author Administrator
- */
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  *
@@ -18,7 +7,14 @@ import java.sql.SQLException;
  */
 public class AccountOwnership 
 {
-    public static void addAccountOwnership(Connection connection, int person_id, int account_id,int account_type_id)//Currently Working
+    /**
+     * 
+     * @param connection
+     * @param person_id
+     * @param account_id
+     * @param account_type_id
+     */
+    public static void addAccountOwnership(Connection connection, int person_id, int account_id,int account_type_id)
     {
         String insertAccountOwnership = "INSERT INTO Account_Ownership (person_id, account_id,account_type_id) VALUES (?,?,?)";
         try 
@@ -28,7 +24,7 @@ public class AccountOwnership
             pstmt.setInt(2, account_id);
             pstmt.setInt(3, account_type_id);
             
-            ResultSet rs = pstmt.executeQuery();
+            pstmt.executeQuery();
             
         }
         catch (SQLException sqle)
@@ -36,6 +32,11 @@ public class AccountOwnership
         }
     }
 
+    /**
+     * 
+     * @param connection
+     * @param account_id
+     */
     public static void getAccountOwnershipByAccountID(Connection connection, int account_id)
     {
         String selectAccountOwnership = "select first_name,last_name,description from account_ownership " +

@@ -1,17 +1,5 @@
 package finalproject;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author Administrator
- */
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  *
@@ -33,12 +21,11 @@ public class Company
         }
         catch (SQLException sqle)
         {
-            System.out.println(sqle);
         }
         
     }
 
-    public static void getCompanyByTicker(Connection connection, String ticker)//UPDATED
+    public static void getCompanyByTicker(Connection connection, String ticker)
     {
         String selectCompany = "SELECT * FROM Company WHERE ticker = upper(?)";
         try 
@@ -59,7 +46,7 @@ public class Company
         }
     }
 
-    public static void deleteCompany(Connection connection, String ticker)//UPDATED
+    public static void deleteCompany(Connection connection, String ticker)
     {
         String deleteCompany = "DELETE FROM Company WHERE ticker = upper(?)";
         try 

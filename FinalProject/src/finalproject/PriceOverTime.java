@@ -1,18 +1,5 @@
 package finalproject;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author Administrator
- */
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  *
@@ -29,7 +16,7 @@ public class PriceOverTime
      * @param date
      * @return 
      */
-    public static void addNewPrice(Connection connection, int company_id, double price, String date)//UPDATED
+    public static void addNewPrice(Connection connection, int company_id, double price, String date)
     {
         String insertPrice = "INSERT INTO price_over_time (company_id, price,date) VALUES (?, ?, CAST(? AS date))";
         try 
