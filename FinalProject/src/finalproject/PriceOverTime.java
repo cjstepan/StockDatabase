@@ -72,29 +72,24 @@ public class PriceOverTime
      * @param company_id
      * @return 
      */
-    public static PriceOverTime getPriceByDate(Connection connection, Date date, int company_id)//Did not work with my tests may be missing something
+    public static void getPriceByDate(Connection connection, String date, String company_ticker)
     {
-        String selectPrice = "SELECT * FROM price_over_time WHERE date = ? AND company_id = ?";
-        PriceOverTime newPrice = new PriceOverTime();
+        String selectPrice = "SELECT price FROM company right join price_over_time "
+                + "on company.company_id = price_over_time.company_id " 
+                + "where ticker = upper(?) and date = to_date( ? , 'YYYY-MM-DD')";
         try 
         {
             PreparedStatement pstmt = connection.prepareStatement(selectPrice);
-            pstmt.setDate(1, date);
-            pstmt.setInt(2, company_id);
+            pstmt.setString(1, company_ticker);
+            pstmt.setString(2, date);
             ResultSet rs = pstmt.executeQuery();
-            while(rs.next())
-            {
-                newPrice.setTimeID(rs.getInt("time_id"));
-                newPrice.setCompanyID(rs.getInt("company_id"));
-                newPrice.setPrice(rs.getDouble("price"));
-                newPrice.setDate(rs.getString("date"));
-            }
+            if(rs.next())
+                System.out.println("Price: " + rs.getInt("price"));
         }
         catch (SQLException sqle)
         {
             System.out.println(sqle);
         }
-        return newPrice;
     }
 
     public static void getAllPriceByTicker(Connection connection, String ticker) {
