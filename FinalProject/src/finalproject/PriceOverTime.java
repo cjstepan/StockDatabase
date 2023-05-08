@@ -95,7 +95,7 @@ public class PriceOverTime
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
                 System.out.println( "Price: $" + rs.getDouble("price") 
-                        + " | Date: " + rs.getString("date") );
+                        + "\t| Date: " + rs.getString("date") );
             }
         }
         catch (SQLException sqle)
