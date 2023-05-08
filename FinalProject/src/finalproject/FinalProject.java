@@ -181,7 +181,8 @@ public class FinalProject {
             System.out.println("3. Get Average Price by Ticker");
             System.out.println("4. Get All Prices by Ticker");
             System.out.println("5. Get Minimum and Maximum Price by Ticker");
-            System.out.println("6. Back to Main Menu\n");
+            System.out.println("6. Get Most Recent Price by Ticker");
+            System.out.println("7. Back to Main Menu\n");
             System.out.print("Enter your choice: ");
             option3Choice = scanner.nextInt();
             switch (option3Choice) {
@@ -237,9 +238,18 @@ public class FinalProject {
                     Scanner scan8 = new Scanner(System.in);
                     String ticker3 = scan8.next();
                     PriceOverTime.getMinMaxPriceByTicker(Dao.getConnection(), ticker3);
-                    break; 
+                    break;
                     
                 case 6:
+                    
+                    System.out.print("\n\n-----Get Most Recent Price by Ticker-----\n\n");
+                    System.out.println("Ticker: ");
+                    Scanner scan9 = new Scanner(System.in);
+                    String ticker4 = scan9.next();
+                    PriceOverTime.getMostRecentPriceByTicker(Dao.getConnection(), ticker4);
+                    break;
+                    
+                case 7:
                     System.out.println("Returning to Main Menu");
                     break;
 
@@ -247,7 +257,7 @@ public class FinalProject {
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
-        } while (option3Choice != 6);
+        } while (option3Choice != 7);
     }
 
     public void option4Menu() {

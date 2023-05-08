@@ -91,6 +91,26 @@ public class PriceOverTime
             System.out.println(sqle);
         }
     }
+    
+    public static void getMostRecentPriceByTicker(Connection connection, String ticker) {
+        String displayPrice = "SELECT price,date FROM company right join price_over_time " +
+            "on company.company_id = price_over_time.company_id where ticker = upper(?) " +
+            "and date = ( select max(date) from price_over_time )";
+        try 
+        {
+            PreparedStatement pstmt = connection.prepareStatement(displayPrice);
+            pstmt.setString(1, ticker);
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()) {
+                System.out.println( "Price: " + rs.getString("price") 
+                        + " | Date: " + rs.getString("date") );
+            }
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println(sqle);
+        }
+    }
 
     public static void getAllPriceByTicker(Connection connection, String ticker) {
         String displayPrice = "SELECT price,date FROM company "
