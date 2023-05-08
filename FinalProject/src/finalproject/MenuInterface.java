@@ -93,7 +93,7 @@ public class MenuInterface
                     String ticker2 = scan2.next();
                     System.out.println("Company Description:");
                     Scanner scan3 = new Scanner(System.in);
-                    String description = scan3.next();
+                    String description = scan3.nextLine();
                     Company.addCompany(Dao.getConnection(), ticker2, description);
                     break;
 
