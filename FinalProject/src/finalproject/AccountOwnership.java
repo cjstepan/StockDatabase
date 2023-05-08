@@ -103,8 +103,4 @@ public class AccountOwnership
             System.out.println(sqle);
         }
     }
-    
-    
-    
-
 }
