@@ -319,7 +319,8 @@ public class FinalProject {
             System.out.println("\n-----Account Ownership Menu-----");
             System.out.println("1. add account ownership");
             System.out.println("2. get account ownership by account id");
-            System.out.println("3. Back to Main Menu\n");
+            System.out.println("3. Total Account Value");
+            System.out.println("4. Back to Main Menu\n");
             System.out.print("Enter your choice: ");
             option4Choice = scanner.nextInt();
             switch (option4Choice) {
@@ -346,8 +347,17 @@ public class FinalProject {
                     int id3 = scan3.nextInt();
                     AccountOwnership.getAccountOwnershipByAccountID(Dao.getConnection(), id3);
                     break;
-                    
+                
                 case 3:
+                    
+                    System.out.println("\n\n-----Total Account Value-----\n\n");//Not Getting Values
+                    System.out.println("account ID: ");
+                    Scanner scan4 = new Scanner(System.in);
+                    int id4 = scan4.nextInt();
+                    AccountOwnership.getAccountTotalValue(Dao.getConnection(), id4);
+                    break;
+                    
+                case 4:
                     
                     System.out.println("Returning to Main Menu");
                     break;
@@ -357,7 +367,7 @@ public class FinalProject {
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
-        } while (option4Choice != 3);
+        } while (option4Choice != 4);
     }
 
     /**

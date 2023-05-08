@@ -67,7 +67,7 @@ public class PriceOverTime
             pstmt.setString(2, date);
             ResultSet rs = pstmt.executeQuery();
             if(rs.next())
-                System.out.println("Price: " + rs.getInt("price"));
+                System.out.println("Price: " + rs.getDouble("price"));
         }
         catch (SQLException sqle)
         {
@@ -85,7 +85,7 @@ public class PriceOverTime
             pstmt.setString(1, ticker);
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()) {
-                System.out.println( "Price: " + rs.getString("price") 
+                System.out.println( "Price: " + rs.getDouble("price") 
                         + " | Date: " + rs.getString("date") );
             }
         }
@@ -107,7 +107,7 @@ public class PriceOverTime
             pstmt.setString(1, ticker);
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
-                System.out.println( "Price: " + rs.getString("price") 
+                System.out.println( "Price: " + rs.getDouble("price") 
                         + " | Date: " + rs.getString("date") );
             }
         }
@@ -128,7 +128,7 @@ public class PriceOverTime
             pstmt.setString(1, ticker);
             ResultSet rs = pstmt.executeQuery();
             if(rs.next())
-                System.out.println( "Average Price: " + rs.getString("avg") );
+                System.out.println( "Average Price: " + rs.getDouble("avg") );
         }
         catch (SQLException sqle)
         {
@@ -146,8 +146,8 @@ public class PriceOverTime
             pstmt.setString(1, ticker);
             ResultSet rs = pstmt.executeQuery();
             if(rs.next())
-                System.out.println( "Minimum Price: " + rs.getString("min")
-                + " | Maximum Price: " + rs.getString("max") );
+                System.out.println( "Minimum Price: " + rs.getDouble("min")
+                + " | Maximum Price: " + rs.getDouble("max") );
         }
         catch (SQLException sqle)
         {

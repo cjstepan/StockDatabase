@@ -58,4 +58,36 @@ public class AccountOwnership
             System.out.println(sqle);
         }
     }
+
+    public static void getAccountTotalValue(Connection connection, int account_id) {
+        String selectSharesCompany = "select shares_purchased,company_id from stock_purchase " +
+            "left join price_over_time on stock_purchase.time_id = price_over_time.time_id " +
+            "where account_id = ?";
+        String selectRecentPrice = "select price from price_over_time " +
+            "where company_id = ? " +
+            "and date = ( select max(date) from price_over_time )";
+        
+        try 
+        {
+            PreparedStatement pstmt = connection.prepareStatement(selectSharesCompany);
+            pstmt.setInt(1, account_id);
+            ResultSet rs = pstmt.executeQuery();
+            ResultSet rs2;
+            double total = 0;
+            while( rs.next() )
+            {
+                pstmt = connection.prepareStatement(selectRecentPrice);
+                pstmt.setInt(1, rs.getInt("company_id"));
+                rs2 = pstmt.executeQuery();
+                if(rs2.next())
+                total = total + rs.getInt("shares_purchased") * rs2.getDouble("price");
+            }
+            System.out.println("Total Account Value is: " + total);
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println(sqle);
+        }
+    }
+
 }
