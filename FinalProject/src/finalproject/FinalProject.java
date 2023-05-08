@@ -94,7 +94,6 @@ public class FinalProject {
                     Scanner scan3 = new Scanner(System.in);
                     String description = scan3.next();
                     Company.addCompany(Dao.getConnection(), ticker2, description);
-                    System.out.println("Company added.");
                     break;
 
                 case 3:
@@ -104,12 +103,10 @@ public class FinalProject {
                     Scanner scan4 = new Scanner(System.in);
                     String ticker3 = scan4.next();
                     Company.deleteCompany(Dao.getConnection(), ticker3);
-                    System.out.println("Company Deleted.");
-
                     break;
 
                 case 4:
-                 System.out.print("\n\n-----Display All Company Tickers-----\n\n");
+                    System.out.print("\n\n-----Display All Company Tickers-----\n\n");
                     String[] str = Company.getAllTickers(Dao.getConnection());
                     for(int i = 0; i < str.length; i++) {
                         if(str[i] != null)
@@ -155,7 +152,6 @@ public class FinalProject {
                     Scanner scan3 = new Scanner(System.in);
                     int id = scan3.nextInt();
                     Person.removePerson(Dao.getConnection(), id);
-                    System.out.println("Person removed.");
                     break;
                 case 3:
                     System.out.println("Returning to Main Menu");
@@ -194,7 +190,6 @@ public class FinalProject {
                     Scanner scan3 = new Scanner(System.in);
                     String date = scan3.next();
                     PriceOverTime.addNewPrice(Dao.getConnection(), id, price, date);
-                    System.out.println("Price Updated.");
                     break;
 
                 case 2:

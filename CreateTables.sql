@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS Account_Ownership (
     account_id SERIAL PRIMARY KEY,
     person_id INT NOT NULL,
     account_type_id INT NOT NULL,
-    FOREIGN KEY (person_id) REFERENCES Person(person_id),
-    FOREIGN KEY (account_type_id) REFERENCES Account_Type(account_type_id)
+    FOREIGN KEY (person_id) REFERENCES Person(person_id) ON DELETE CASCADE,
+    FOREIGN KEY (account_type_id) REFERENCES Account_Type(account_type_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Company (
@@ -28,15 +28,15 @@ CREATE TABLE IF NOT EXISTS Price_Over_Time (
     company_id INT NOT NULL,
     date DATE NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (company_id) REFERENCES Company(company_id)
+    FOREIGN KEY (company_id) REFERENCES Company(company_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Stock_Purchase (
     time_id INT NOT NULL,
     account_id INT NOT NULL,
     shares_purchased INT NOT NULL,
-    FOREIGN KEY (time_id) REFERENCES Price_Over_Time(time_id),
-    FOREIGN KEY (account_id) REFERENCES Account_Ownership(account_id),
+    FOREIGN KEY (time_id) REFERENCES Price_Over_Time(time_id) ON DELETE CASCADE,
+    FOREIGN KEY (account_id) REFERENCES Account_Ownership(account_id) ON DELETE CASCADE,
     PRIMARY KEY (time_id, account_id)
 );
 

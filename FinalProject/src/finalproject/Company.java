@@ -34,7 +34,7 @@ public class Company
         
     }
     
-    public static void addCompany(Connection connection, String ticker, String description)//UPDATED
+    public static void addCompany(Connection connection, String ticker, String description)
     {
         String insertCompany = "INSERT INTO Company (ticker, description) VALUES (upper(?), ?)";
         Company newCompany = new Company();
@@ -45,11 +45,11 @@ public class Company
             pstmt.setString(2, description);
             
             pstmt.executeQuery();
-
+            System.out.println("Company added.");
         }
         catch (SQLException sqle)
         {
-            
+            System.out.println(sqle);
         }
         
     }
@@ -85,8 +85,8 @@ public class Company
         {
             PreparedStatement pstmt = connection.prepareStatement(deleteCompany);
             pstmt.setString(1, ticker);
-            
             pstmt.executeUpdate();
+            System.out.println("Company Deleted.");
         }
         catch (SQLException sqle)
         {

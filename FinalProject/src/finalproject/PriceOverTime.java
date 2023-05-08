@@ -57,7 +57,7 @@ public class PriceOverTime
             pstmt.setString(3, date);
             
             pstmt.executeQuery();
-            
+            System.out.println("Price Updated.");
         }
         catch (SQLException sqle)
         {

@@ -64,19 +64,36 @@ public class Person
      * @param connection
      * @param person_id
      */
-    public static void removePerson(Connection connection, int person_id)//UPDATED
+    public static void removePerson(Connection connection, int person_id)
     {
-        String deletePerson = "DELETE FROM stock_purchase where account_id = ?;" +
-                            "DELETE From Account_Ownership Where person_id = ?;" +
-                            "DELETE FROM Person WHERE person_id = ?;";
-        // String deletePerson = "DELETE FROM Person WHERE person_id = ?;";
+        String deletePerson = "DELETE FROM Stock_Purchase where account_id = ?";
+        String deletePerson2 = "DELETE FROM Account_Ownership where person_id = ?";
+        String deletePerson3 = "DELETE FROM Person where person_id = ?";
         try 
         {
             PreparedStatement pstmt = connection.prepareStatement(deletePerson);
             pstmt.setInt(1, person_id);
-            pstmt.setInt(2, person_id);
-            pstmt.setInt(3, person_id);
-            
+            pstmt.executeUpdate();
+            System.out.println("Person removed.");
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println(sqle);
+        }
+        try 
+        {
+            PreparedStatement pstmt = connection.prepareStatement(deletePerson2);
+            pstmt.setInt(1, person_id);
+            pstmt.executeUpdate();
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println(sqle);
+        }
+        try 
+        {
+            PreparedStatement pstmt = connection.prepareStatement(deletePerson3);
+            pstmt.setInt(1, person_id);
             pstmt.executeUpdate();
         }
         catch (SQLException sqle)
