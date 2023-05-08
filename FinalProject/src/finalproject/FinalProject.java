@@ -9,7 +9,7 @@ import java.sql.*;
 
 /**
  *
- * @author calvin NOAH twey
+ * @author calvin nooh Trey
  */
 public class FinalProject {
 
