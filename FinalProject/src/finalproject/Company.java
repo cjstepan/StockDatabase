@@ -36,7 +36,7 @@ public class Company
     
     public static void addCompany(Connection connection, String ticker, String description)//UPDATED
     {
-        String insertCompany = "INSERT INTO Company (ticker, description) VALUES (?, ?)";
+        String insertCompany = "INSERT INTO Company (ticker, description) VALUES (upper(?), ?)";
         Company newCompany = new Company();
         try 
         {
@@ -56,7 +56,7 @@ public class Company
 
     public static Company getCompanyByTicker(Connection connection, String ticker)//UPDATED
     {
-        String selectCompany = "SELECT * FROM Company WHERE ticker = ?";
+        String selectCompany = "SELECT * FROM Company WHERE ticker = upper(?)";
         Company newCompany = new Company();
         try 
         {
@@ -80,7 +80,7 @@ public class Company
 
     public static void deleteCompany(Connection connection, String ticker)//UPDATED
     {
-        String deleteCompany = "DELETE FROM Company WHERE ticker = ?";
+        String deleteCompany = "DELETE FROM Company WHERE ticker = upper(?)";
         try 
         {
             PreparedStatement pstmt = connection.prepareStatement(deleteCompany);
