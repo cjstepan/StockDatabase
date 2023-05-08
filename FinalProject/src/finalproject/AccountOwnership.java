@@ -54,28 +54,27 @@ public class AccountOwnership
         return newAccountOwnership;
     }
 
-    public static AccountOwnership getAccountOwnershipByAccountID(Connection connection, int account_id)
+    public static void getAccountOwnershipByAccountID(Connection connection, int account_id)
     {
-        String selectAccountOwnership = "SELECT * FROM Account_Ownership WHERE account_id = ?";
-        AccountOwnership newAccountOwnership = new AccountOwnership();
+        String selectAccountOwnership = "select first_name,last_name,description from account_ownership " +
+            "left join account_type on account_ownership.account_type_id = account_type.account_type_id " +
+            "left join person on account_ownership.person_id = person.person_id where account_id = ?";
         try 
         {
             PreparedStatement pstmt = connection.prepareStatement(selectAccountOwnership);
             pstmt.setInt(1, account_id);
             
             ResultSet rs = pstmt.executeQuery();
-            while(rs.next())
+            if(rs.next())
             {
-                newAccountOwnership.setAccountOwnershipID(rs.getInt("account_type_id"));
-                newAccountOwnership.setPersonID(rs.getInt("person_id"));
-                newAccountOwnership.setAccountID(rs.getInt("account_id"));
+                System.out.println("Account Owner: " + rs.getString("first_name") + " " +
+                        rs.getString("last_name") + "\nAccount Type: " + rs.getString("description"));
             }
         }
         catch (SQLException sqle)
         {
             System.out.println(sqle);
         }
-        return newAccountOwnership;
     }
 
     public void setAccountOwnershipID(int account_ownership_id) 
