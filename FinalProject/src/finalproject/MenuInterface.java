@@ -353,7 +353,7 @@ public class MenuInterface
                     System.out.println("Account ID: ");
                     Scanner scan2 = new Scanner(System.in);
                     int id2 = scan2.nextInt();
-                    System.out.println("What Type of Account: \n1. Roth IRA\n2. Money Market\n3. Mutual Fund");
+                    System.out.println("What Type of Account: \n1. Roth IRA\n2. 529 Plan\n3. Individual 401(k)");
                     Scanner scan69 = new Scanner(System.in);
                     int id69 = scan69.nextInt();
                     AccountOwnership.addAccountOwnership(Dao.getConnection(), id, id2, id69);
