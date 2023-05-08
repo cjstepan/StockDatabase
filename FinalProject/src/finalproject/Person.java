@@ -102,6 +102,28 @@ public class Person
         }
     }
 
+    public static void getAccountsOwnedByPerson(Connection connection, int person_id)
+    {
+        String selectPersonAccounts = "select first_name,last_name,description from account_ownership " +
+            "left join account_type on account_ownership.account_type_id = account_type.account_type_id " +
+            "left join person on account_ownership.person_id = person.person_id " +
+            "where account_ownership.person_id = ?";
+        try 
+        {
+            PreparedStatement pstmt = connection.prepareStatement(selectPersonAccounts);
+            pstmt.setInt(1, person_id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next())
+            {
+                System.out.println(rs.getString("first_name") + " " + rs.getString("last_name") + " " + rs.getString("description"));
+            }
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println(sqle);
+        }
+    }
+
     public void setPersonID(int person_id) 
     {
         this.person_id = person_id;

@@ -132,7 +132,8 @@ public class FinalProject {
             System.out.println("\n-----Person Information Menu-----");
             System.out.println("1. Add Person");
             System.out.println("2. Remove Person");
-            System.out.println("3. Back to Main Menu\n");
+            System.out.println("3. Get Accounts Owned by Person");
+            System.out.println("4. Back to Main Menu\n");
             System.out.print("Enter your choice: ");
             option2Choice = scanner.nextInt();
             switch (option2Choice) {
@@ -154,6 +155,13 @@ public class FinalProject {
                     Person.removePerson(Dao.getConnection(), id);
                     break;
                 case 3:
+                    System.out.println("\n\n-----Get Accounts Owned by Person-----\n\n");
+                    System.out.println("Insert ID: ");
+                    Scanner scan4 = new Scanner(System.in);
+                    int id2 = scan4.nextInt();
+                    Person.getAccountsOwnedByPerson(Dao.getConnection(), id2);
+                    break;
+                case 4:
                     System.out.println("Returning to Main Menu");
                     break;
                 default:
