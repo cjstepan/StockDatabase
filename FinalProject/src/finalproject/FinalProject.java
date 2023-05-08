@@ -1,5 +1,7 @@
 package finalproject;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Calvin Stepan, Noah Gunderson, Trey Mathieu
@@ -7,8 +9,10 @@ package finalproject;
 public class FinalProject {
 
     public void start() {
+        Scanner scanner = new Scanner(System.in);
         Dao.connectToDatabase();
-        MenuInterface.showMenu();
+        MenuInterface.showMenu(scanner);
+        scanner.close();
     }
 
     /**
@@ -17,6 +21,5 @@ public class FinalProject {
     public static void main(String[] args) {
         FinalProject project = new FinalProject();
         project.start();
-
     }
 }

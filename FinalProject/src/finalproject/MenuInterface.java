@@ -5,9 +5,8 @@ import java.util.Scanner;
 public class MenuInterface 
 {
 
-    public static void showMenu() 
+    public static void showMenu(Scanner scanner) 
     {
-        Scanner scanner = new Scanner(System.in);
         int mainMenuChoice = 0;
         
         while (mainMenuChoice != 6) 
@@ -28,27 +27,27 @@ public class MenuInterface
             switch (mainMenuChoice) 
             {
                 case 1:
-                    companyInfoMenu();
+                    companyInfoMenu(scanner);
                     break;
 
                 case 2:
-                    personInfoMenu();
+                    personInfoMenu(scanner);
                     break;
 
                 case 3:
-                    priceOverTimeMenu();
+                    priceOverTimeMenu(scanner);
                     break;
 
                 case 4:
-                    purchaseMenu();
+                    purchaseMenu(scanner);
                     break;
 
                 case 5:
-                    accountOwnershipMenu();
+                    accountOwnershipMenu(scanner);
                     break;
 
                 case 6:
-                    System.out.println("Exit");
+                    System.out.println("\n\nThank you for using the Stock Market Database. Goodbye!");
                     break;
 
                 default:
@@ -58,10 +57,10 @@ public class MenuInterface
         }
     }
 
-    private static void companyInfoMenu() 
+    private static void companyInfoMenu(Scanner scanner) 
     {
-        Scanner scanner = new Scanner(System.in);
         int companyInfoChoice = 0;
+        String ticker;
 
         while (companyInfoChoice != 5) 
         {
@@ -82,26 +81,23 @@ public class MenuInterface
             {
                 case 1:
                     System.out.println("\n\n-----Company by Ticker-----\n\nCompany Ticker: ");
-                    Scanner scan1 = new Scanner(System.in);
-                    String ticker = scan1.next();
+                    ticker = scanner.next();
                     Company.getCompanyByTicker(Dao.getConnection(), ticker);
                     break;
 
                 case 2:
                     System.out.println("\n\n-----Add Company-----\n\nCompany Ticker: ");
-                    Scanner scan2 = new Scanner(System.in);
-                    String ticker2 = scan2.next();
+                    ticker = scanner.next();
+                    scanner.nextLine(); // Consume newline left-over
                     System.out.println("Company Description:");
-                    Scanner scan3 = new Scanner(System.in);
-                    String description = scan3.nextLine();
-                    Company.addCompany(Dao.getConnection(), ticker2, description);
+                    String description = scanner.nextLine();
+                    Company.addCompany(Dao.getConnection(), ticker, description);
                     break;
 
                 case 3:
                     System.out.println("\n\n-----Delete Company-----\n\nInsert Ticker: ");
-                    Scanner scan4 = new Scanner(System.in);
-                    String ticker3 = scan4.next();
-                    Company.deleteCompany(Dao.getConnection(), ticker3);
+                    ticker = scanner.next();
+                    Company.deleteCompany(Dao.getConnection(), ticker);
                     break;
 
                 case 4:
@@ -124,10 +120,10 @@ public class MenuInterface
         }
     }
 
-    private static void personInfoMenu() 
+    private static void personInfoMenu(Scanner scanner) 
     {
-        Scanner scanner = new Scanner(System.in);
         int personInfoChoice = 0;
+        int person_id;
 
         while (personInfoChoice != 4) 
         {
@@ -148,26 +144,22 @@ public class MenuInterface
             {
                 case 1:
                     System.out.println("\n\n-----Add Person-----\n\nFirst name: ");
-                    Scanner scan1 = new Scanner(System.in);
-                    String first_name = scan1.next();
+                    String first_name = scanner.next();
                     System.out.println("Last name: ");
-                    Scanner scan2 = new Scanner(System.in);
-                    String last_name = scan2.next();
+                    String last_name = scanner.next();
                     Person.addPerson(Dao.getConnection(), first_name, last_name);
                     break;
 
                 case 2:
                     System.out.println("\n\n-----Remove Person-----\n\nInsert ID: ");
-                    Scanner scan3 = new Scanner(System.in);
-                    int id = scan3.nextInt();
-                    Person.removePerson(Dao.getConnection(), id);
+                    person_id = scanner.nextInt();
+                    Person.removePerson(Dao.getConnection(), person_id);
                     break;
 
                 case 3:
                     System.out.println("\n\n-----Get Accounts Owned by Person-----\n\nInsert ID: ");
-                    Scanner scan4 = new Scanner(System.in);
-                    int id2 = scan4.nextInt();
-                    Person.getAccountsOwnedByPerson(Dao.getConnection(), id2);
+                    person_id = scanner.nextInt();
+                    Person.getAccountsOwnedByPerson(Dao.getConnection(), person_id);
                     break;
 
                 case 4:
@@ -181,10 +173,10 @@ public class MenuInterface
         }
     }
 
-    private static void priceOverTimeMenu() 
+    private static void priceOverTimeMenu(Scanner scanner) 
     {
-        Scanner scanner = new Scanner(System.in);
         int priceOverTimeChoice = 0;
+        String ticker, date;
 
         while (priceOverTimeChoice != 7) 
         {
@@ -205,53 +197,44 @@ public class MenuInterface
             {
                 case 1:
                     System.out.println("\n\n-----Add new price-----\n\nCompany ID: ");
-                    Scanner scan1 = new Scanner(System.in);
-                    int id = scan1.nextInt();
+                    int company_id = scanner.nextInt();
                     System.out.println("Price Changed to: ");
-                    Scanner scan2 = new Scanner(System.in);
-                    double price = scan2.nextDouble();
+                    double price = scanner.nextDouble();
                     System.out.println("Current Date(YYYY-MM-DD): ");
-                    Scanner scan3 = new Scanner(System.in);
-                    String date = scan3.next();
-                    PriceOverTime.addNewPrice(Dao.getConnection(), id, price, date);
+                    date = scanner.next();
+                    PriceOverTime.addNewPrice(Dao.getConnection(), company_id, price, date);
                     break;
 
                 case 2:
                     System.out.print("\n\n-----Get price by date-----\n\nCompany Ticker: ");
-                    Scanner scan4 = new Scanner(System.in);
-                    String id2 = scan4.next();
+                    ticker = scanner.next();
                     System.out.println("Current Date(YYYY-MM-DD): ");
-                    Scanner scan5 = new Scanner(System.in);
-                    String date2 = scan5.next();
-                    PriceOverTime.getPriceByDate(Dao.getConnection(), date2, id2);
+                    date = scanner.next();
+                    PriceOverTime.getPriceByDate(Dao.getConnection(), date, ticker);
                     break;
 
                 case 3:
                     System.out.print("\n\n-----Get Average Price by Ticker-----\n\nTicker: ");
-                    Scanner scan7 = new Scanner(System.in);
-                    String ticker2 = scan7.next();
-                    PriceOverTime.getAvgPriceByTicker(Dao.getConnection(), ticker2);
+                    ticker = scanner.next();
+                    PriceOverTime.getAvgPriceByTicker(Dao.getConnection(), ticker);
                     break;
 
                 case 4:
                     System.out.print("\n\n-----Get All Prices by Ticker-----\n\nTicker: ");
-                    Scanner scan6 = new Scanner(System.in);
-                    String ticker1 = scan6.next();
-                    PriceOverTime.getAllPriceByTicker(Dao.getConnection(), ticker1);
+                    ticker = scanner.next();
+                    PriceOverTime.getAllPriceByTicker(Dao.getConnection(), ticker);
                     break;
 
                 case 5:
                     System.out.print("\n\n-----Get Minimum and Maximum Price by Ticker-----\n\nTicker: ");
-                    Scanner scan8 = new Scanner(System.in);
-                    String ticker3 = scan8.next();
-                    PriceOverTime.getMinMaxPriceByTicker(Dao.getConnection(), ticker3);
+                    ticker = scanner.next();
+                    PriceOverTime.getMinMaxPriceByTicker(Dao.getConnection(), ticker);
                     break;
 
                 case 6:
                     System.out.print("\n\n-----Get Most Recent Price by Ticker-----\n\nTicker: ");
-                    Scanner scan9 = new Scanner(System.in);
-                    String ticker4 = scan9.next();
-                    PriceOverTime.getMostRecentPriceByTicker(Dao.getConnection(), ticker4);
+                    ticker = scanner.next();
+                    PriceOverTime.getMostRecentPriceByTicker(Dao.getConnection(), ticker);
                     break;
 
                 case 7:
@@ -265,10 +248,10 @@ public class MenuInterface
         }
     }
 
-    private static void purchaseMenu() 
+    private static void purchaseMenu(Scanner scanner) 
     {
-        Scanner scanner = new Scanner(System.in);
         int purchaseChoice = 0;
+        int account_id, time_id, shares;
 
         while (purchaseChoice != 3) 
         {
@@ -289,28 +272,22 @@ public class MenuInterface
             {
                 case 1:
                     System.out.println("\n\n-----Add Purchase-----\n\nAccount_id: ");
-                    Scanner scan1 = new Scanner(System.in);
-                    int id = scan1.nextInt();
+                    account_id = scanner.nextInt();
                     System.out.println("ID for the Time Created: ");
-                    Scanner scan2 = new Scanner(System.in);
-                    int tID = scan2.nextInt();
+                    time_id = scanner.nextInt();
                     System.out.println("Number of Shares Purchased: ");
-                    Scanner scan3 = new Scanner(System.in);
-                    int shares = scan3.nextInt();
-                    StockPurchase.addPurchase(Dao.getConnection(), id, tID, shares);
+                    shares = scanner.nextInt();
+                    StockPurchase.addPurchase(Dao.getConnection(), account_id, time_id, shares);
                     break;
 
                 case 2:
                     System.out.println("\n\n-----Update Purchase-----\n\nAccount_id: ");
-                    Scanner scan4 = new Scanner(System.in);
-                    int id2 = scan4.nextInt();
+                    account_id = scanner.nextInt();
                     System.out.println("ID for the Time Created: ");
-                    Scanner scan5 = new Scanner(System.in);
-                    int tID2 = scan5.nextInt();
+                    time_id = scanner.nextInt();
                     System.out.println("Number of Shares Purchased: ");
-                    Scanner scan6 = new Scanner(System.in);
-                    int shares2 = scan6.nextInt();
-                    StockPurchase.updatePurchase(Dao.getConnection(), id2, tID2, shares2);
+                    shares = scanner.nextInt();
+                    StockPurchase.updatePurchase(Dao.getConnection(), account_id, time_id, shares);
                     break;
 
                 case 3:
@@ -324,10 +301,10 @@ public class MenuInterface
         }
     }
 
-    private static void accountOwnershipMenu() 
+    private static void accountOwnershipMenu(Scanner scanner) 
     {
-        Scanner scanner = new Scanner(System.in);
         int accountOwnershipChoice = 0;
+        int account_id, person_id;
 
         while (accountOwnershipChoice != 4) 
         {
@@ -348,29 +325,24 @@ public class MenuInterface
             {
                 case 1:
                     System.out.println("\n\n-----Add Account Ownership-----\n\nPerson ID: ");
-                    Scanner scan1 = new Scanner(System.in);
-                    int id = scan1.nextInt();
+                    person_id = scanner.nextInt();
                     System.out.println("Account ID: ");
-                    Scanner scan2 = new Scanner(System.in);
-                    int id2 = scan2.nextInt();
+                    account_id = scanner.nextInt();
                     System.out.println("What Type of Account: \n1. Roth IRA\n2. 529 Plan\n3. Individual 401(k)");
-                    Scanner scan69 = new Scanner(System.in);
-                    int id69 = scan69.nextInt();
-                    AccountOwnership.addAccountOwnership(Dao.getConnection(), id, id2, id69);
+                    int account_type_id = scanner.nextInt();
+                    AccountOwnership.addAccountOwnership(Dao.getConnection(), person_id, account_id, account_type_id);
                     break;
 
                 case 2:
                     System.out.println("\n\n-----Account Ownership By Account ID-----\n\nAccount ID: ");
-                    Scanner scan3 = new Scanner(System.in);
-                    int id3 = scan3.nextInt();
-                    AccountOwnership.getAccountOwnershipByAccountID(Dao.getConnection(), id3);
+                    account_id = scanner.nextInt();
+                    AccountOwnership.getAccountOwnershipByAccountID(Dao.getConnection(), account_id);
                     break;
 
                 case 3:
                     System.out.println("\n\n-----Total Account Value-----\n\nAccount ID: ");
-                    Scanner scan4 = new Scanner(System.in);
-                    int id4 = scan4.nextInt();
-                    AccountOwnership.getAccountTotalValue(Dao.getConnection(), id4);
+                    account_id = scanner.nextInt();
+                    AccountOwnership.getAccountTotalValue(Dao.getConnection(), account_id);
                     break;
                 case 4:
                     System.out.println("Returning to Main Menu");
